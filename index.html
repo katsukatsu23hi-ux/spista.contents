@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#f7f3e9">
+  <title>【配布資料】ポケット設計書とnote公開マニュアル</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: light; --paper:#f7f3e9; --surface:#fffcf6; --ink:#243346; --navy:#172d4e; --gold:#ab8544; --line:#e5ddcd; --muted:#667385; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:"Noto Sans JP",system-ui,sans-serif; font-size:16px; line-height:1.9; overflow-wrap:anywhere; }
+    a { color:#315984; text-underline-offset:.2em; }
+    a:hover { color:var(--gold); }
+    a:focus-visible, button:focus-visible, input:focus-visible, .table-scroll:focus-visible { outline:3px solid var(--gold); outline-offset:3px; }
+    .page { width:min(100% - 36px,880px); margin:0 auto; padding:40px 0 80px; }
+    h1,h2,h3 { color:var(--navy); line-height:1.45; letter-spacing:.015em; scroll-margin-top:22px; overflow-wrap:normal; }
+    h1 { font-size:clamp(1.65rem,5.8vw,2.5rem); margin:0 0 16px; padding-bottom:22px; border-bottom:3px solid var(--gold); }
+    h2 { font-size:clamp(1.35rem,4.6vw,1.85rem); margin:64px 0 18px; padding:0 0 12px 15px; border-bottom:1px solid var(--line); border-left:5px solid var(--gold); }
+    h3 { font-size:clamp(1.1rem,4vw,1.32rem); margin:36px 0 14px; }
+    p { margin:14px 0 20px; }
+    h1 + p { color:var(--muted); font-size:.91rem; margin:0 0 30px; }
+    .toc { background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:22px 23px 24px; box-shadow:0 8px 28px #172d4e0a; margin:28px 0 46px; }
+    .toc-title { color:var(--navy); font-weight:800; font-size:1.1rem; margin-bottom:12px; }
+    .toc ul { list-style:none; padding:0; margin:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:5px 22px; }
+    .toc li { margin:0; }
+    .toc a { display:block; padding:7px 3px; text-decoration:none; border-bottom:1px solid #ebe5d9; line-height:1.5; color:var(--navy); }
+    .toc a:hover { border-color:var(--gold); }
+    .toc-level-3 a { padding-left:17px; color:#56677c; font-size:.91rem; }
+    ul:not(.checklist), ol { padding-left:1.5em; margin:14px 0 24px; }
+    li { padding-left:.18em; margin:8px 0; }
+    li::marker { color:var(--gold); font-weight:700; }
+    .table-scroll { overflow-x:auto; overscroll-behavior-inline:contain; -webkit-overflow-scrolling:touch; margin:20px 0 30px; border:1px solid var(--line); border-radius:13px; background:var(--surface); }
+    table { border-collapse:collapse; width:100%; min-width:540px; font-size:.91rem; line-height:1.65; }
+    th,td { padding:13px 15px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line); }
+    th { background:#f0e9d9; color:var(--navy); font-weight:700; white-space:nowrap; }
+    tr:last-child td { border-bottom:0; }
+    tbody tr:nth-child(even) { background:#fcf9f2; }
+    .prompt { position:relative; margin:16px 0 24px; background:#172d4e; color:#f7f3e9; border-radius:14px; box-shadow:0 8px 24px #172d4e1a; }
+    .prompt pre { margin:0; padding:62px 20px 22px; white-space:pre-wrap; overflow-wrap:anywhere; font:inherit; font-size:.87rem; line-height:1.82; }
+    .prompt code { font:inherit; }
+    .copy-button { position:absolute; top:12px; right:12px; border:1px solid #c7ac79; border-radius:8px; background:#f2e7d1; color:#172d4e; padding:8px 13px; min-height:38px; font:700 .8rem "Noto Sans JP",sans-serif; cursor:pointer; }
+    .copy-button:hover { background:#fff6e6; }
+    .checklist { list-style:none; padding:0; margin:10px 0 28px; }
+    .checklist li { padding:0; margin:8px 0; }
+    .checklist label { display:flex; gap:12px; align-items:flex-start; padding:12px 14px; border:1px solid var(--line); border-radius:10px; background:var(--surface); cursor:pointer; line-height:1.65; }
+    .checklist input { appearance:none; flex:none; margin:3px 0 0; width:22px; height:22px; border:2px solid var(--gold); border-radius:5px; background:#fff; cursor:pointer; }
+    .checklist input:checked { background:var(--gold); box-shadow:inset 0 0 0 3px #fff; }
+    .checklist input:checked + span { color:var(--muted); text-decoration:line-through; text-decoration-color:#b7aa91; }
+    .flow { background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:25px 15px 18px; margin:22px 0 27px; }
+    .flow-main { display:flex; align-items:center; justify-content:center; gap:7px; }
+    .flow-node { min-width:0; flex:1; text-align:center; color:var(--navy); background:#f1e8d6; border:1px solid #d8c7a7; border-radius:10px; padding:13px 6px; font-size:.89rem; font-weight:700; line-height:1.5; }
+    .flow-node small { display:block; font-size:.7rem; font-weight:500; }
+    .flow-arrow { flex:none; color:var(--gold); font-size:1.4rem; font-weight:800; }
+    .flow-return { width:max-content; max-width:100%; margin:13px auto 0; padding:4px 15px; border:1px dashed var(--gold); border-radius:999px; color:#765b2c; font-size:.8rem; text-align:center; }
+    @media (max-width:650px) {
+      .page { width:min(100% - 30px,880px); padding-top:26px; }
+      .toc { padding:18px 17px; }
+      .toc ul { grid-template-columns:1fr; gap:0; }
+      h2 { margin-top:52px; }
+      table { min-width:560px; }
+      .flow-main { flex-direction:column; gap:0; }
+      .flow-node { width:min(100%,310px); padding:10px 8px; }
+      .flow-arrow { transform:rotate(90deg); line-height:1.15; margin:1px 0; }
+      .flow-return { margin-top:16px; }
+    }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <h1 id="section-0">【配布資料】ポケット設計書とnote公開マニュアル</h1>
+    <p>スピスタ リアルセミナー「続・1万円で売れる魔法の薬を作ろうの会」 · Sep 25, 2026 · @yoshiaki</p>
+    <nav class="toc" aria-label="目次"><div class="toc-title">目次</div><ul><li class="toc-level-2"><a href="#section-1">この資料の使い方</a></li><li class="toc-level-2"><a href="#section-2">ポケット設計書シート</a></li><li class="toc-level-3"><a href="#section-3">「まだ気づいていない症状」の書き方</a></li><li class="toc-level-3"><a href="#section-4">記入例：金脈猫</a></li><li class="toc-level-2"><a href="#section-5">noteの操作マニュアル</a></li><li class="toc-level-3"><a href="#section-6">1. アカウントを作る（事前にやっておく）</a></li><li class="toc-level-3"><a href="#section-7">2. 記事を書いて、有料にする（ブラウザ）</a></li><li class="toc-level-3"><a href="#section-8">3. 購入者から見た画面を確認する</a></li><li class="toc-level-3"><a href="#section-9">4. 価格を変える</a></li><li class="toc-level-3"><a href="#section-10">知っておくと安心なこと</a></li><li class="toc-level-2"><a href="#section-11">プロンプト集</a></li><li class="toc-level-3"><a href="#section-12">① ポケット設計書をまとめる</a></li><li class="toc-level-3"><a href="#section-13">② noteのテーマを出す</a></li><li class="toc-level-3"><a href="#section-14">③ 有料noteの構成を作る</a></li><li class="toc-level-3"><a href="#section-15">④ 無料部分を書く</a></li><li class="toc-level-3"><a href="#section-16">⑤ 有料部分を1章ずつ書く</a></li><li class="toc-level-3"><a href="#section-17">⑥ おわりに・個別メニューの案内</a></li><li class="toc-level-3"><a href="#section-18">⑦ 無料noteを書く</a></li><li class="toc-level-3"><a href="#section-19">仕上げ：体験談を自分の声で入れる</a></li><li class="toc-level-2"><a href="#section-20">公開前チェックリスト</a></li><li class="toc-level-3"><a href="#section-21">有料note</a></li><li class="toc-level-3"><a href="#section-22">無料note</a></li><li class="toc-level-2"><a href="#section-23">公開したあとにやること</a></li><li class="toc-level-3"><a href="#section-24">1. 有料noteの品数を増やす</a></li><li class="toc-level-3"><a href="#section-25">2. 無料noteを量産する</a></li><li class="toc-level-3"><a href="#section-26">3. 記事同士をつなぐ</a></li><li class="toc-level-3"><a href="#section-27">4. Threadsで届ける</a></li></ul></nav>
+    <h2 id="section-1">この資料の使い方</h2><p>今日のゴールは、有料noteを1本公開して、その中に自分の個別メニューへの入口がある状態をつくることです。この資料は当日の作業の手元に置いて、上から順に使ってください。</p><div class="table-scroll" tabindex="0" role="region" aria-label="表（横スクロール可能）"><table><thead><tr><th scope="col">当日のパート</th><th scope="col">使う章</th></tr></thead><tbody><tr><td>PART1 5つの引き寄せでポケット設計書をつくる</td><td>ポケット設計書シート／プロンプト①</td></tr><tr><td>PART2 noteでつくるポケットの全体像</td><td>公開したあとにやること</td></tr><tr><td>PART3 有料noteを設計する</td><td>プロンプト②③</td></tr><tr><td>公開セッション</td><td>ポケット設計書シート（読み上げ用）</td></tr><tr><td>PART4 書いて、その場で公開する</td><td>プロンプト④⑤⑥／noteの操作マニュアル／チェックリスト</td></tr><tr><td>PART5 無料noteと記事同士のつなぎ方</td><td>プロンプト⑦／公開したあとにやること</td></tr></tbody></table></div><p>プロンプトは、ナビよしくん（またはChatGPT・Gemini）の同じチャットの中で、①から順番に送ってください。途中でチャットを変えると、ポケット設計書の内容をAIが忘れてしまいます。</p><p>迷ったら、完璧を目指さずに先へ進んでください。noteは公開したあとでも、中身も価格も何度でも直せます。</p><h2 id="section-2">ポケット設計書シート</h2><p>ポケット設計書は、AIに記事を書いてもらう前に「書く人は誰か」を1枚にまとめたものです。これが具体的なほど、AIが書くnoteはあなたらしく、売れるものになります。</p><p>PART1のワークで、ノートに下の11項目を書き出してください。清書はプロンプト①でAIがやってくれるので、箇条書きのメモで大丈夫です。</p><div class="table-scroll" tabindex="0" role="region" aria-label="表（横スクロール可能）"><table><thead><tr><th scope="col">項目</th><th scope="col">書くこと</th><th scope="col">書き方のヒント</th></tr></thead><tbody><tr><td>1. 名前・肩書き</td><td>発信するときの名前と肩書き</td><td>名前の3パターン（掛け合わせ／ベネフィット／ユニーク）から</td></tr><tr><td>2. キャラクター</td><td>一人称・口調・雰囲気・決め台詞</td><td>「です・ます」か話し言葉か。語尾のクセまで決める</td></tr><tr><td>3. ポケットタイプ</td><td>メイン形式と伸びしろ形式</td><td>文章／対話／鑑定／ライブ／動画から</td></tr><tr><td>4. 届けたい相手</td><td>年代・状況・どんな毎日か</td><td>1人の具体的な人を思い浮かべて書く</td></tr><tr><td>5. 自覚している悩み</td><td>本人が言葉にできている悩み</td><td>検索窓に打ち込みそうな言葉で</td></tr><tr><td>6. まだ気づいていない症状</td><td>悩みの原因だと気づいていない日常の行動</td><td>一番大事な項目。場面が浮かぶ具体的な行動で書く</td></tr><tr><td>7. 龍脈</td><td>前に買っているもの → 次に欲しくなるもの</td><td>宝探し瞑想で見つけた、売れている薬がヒント</td></tr><tr><td>8. 私の主張</td><td>「違う違う、そうじゃない」／「本当はこっち」</td><td>初心者を見て「違う違う」と思う瞬間を言葉にする</td></tr><tr><td>9. 解決策の名前とステップ</td><td>あなたのメソッドの名前と、2〜4つのステップ</td><td>名前だけで中身が想像できるものに</td></tr><tr><td>10. 私のストーリー</td><td>ビフォー／きっかけ／試したこと／アフター</td><td>各1行。コンプレックスや失敗も資産になる</td></tr><tr><td>11. 個別メニュー</td><td>内容・形式・価格・申込先</td><td>申込先は公式LINE・申込フォーム・DMのどれか</td></tr></tbody></table></div><h3 id="section-3">「まだ気づいていない症状」の書き方</h3><p>この項目の質で、無料noteの質がほぼ決まります。抽象的な言葉ではなく、その人の日常の一場面として書いてください。</p><div class="table-scroll" tabindex="0" role="region" aria-label="表（横スクロール可能）"><table><thead><tr><th scope="col">抽象的（AIが使いにくい）</th><th scope="col">具体的（AIが一本書ける）</th></tr></thead><tbody><tr><td>お金に対してブロックがある</td><td>お会計で「すみません」と言ってしまう</td></tr><tr><td>自己肯定感が低い</td><td>褒められると、すぐ「いやいや」と否定する</td></tr><tr><td>人間関係に疲れている</td><td>LINEの返信を、何度も読み返してから送る</td></tr></tbody></table></div><h3 id="section-4">記入例：金脈猫</h3><div class="table-scroll" tabindex="0" role="region" aria-label="表（横スクロール可能）"><table><thead><tr><th scope="col">項目</th><th scope="col">記入例</th></tr></thead><tbody><tr><td>1. 名前・肩書き</td><td>金脈猫（きんみゃくねこ）。お金の通り道を嗅ぎ分ける猫</td></tr><tr><td>2. キャラクター</td><td>一人称「ボク」。基本は「です・ます」、決め台詞だけ「〜にゃ」。元は神社の境内に住んでいた猫。のんびり、でも核心はズバッと言う。決め台詞「あなたの足元の金脈、一緒に掘り当てにいくにゃ」</td></tr><tr><td>3. ポケットタイプ</td><td>メイン：鑑定型／伸びしろ：文章型</td></tr><tr><td>4. 届けたい相手</td><td>30〜40代の女性、会社員か主婦。引き寄せの本やノート術、開運グッズを一通り試してきた。家計は回っているが、お金の不安がずっと消えない</td></tr><tr><td>5. 自覚している悩み</td><td>引き寄せを頑張っても、お金の現実が動かない／臨時収入が入っても同じくらい出ていく</td></tr><tr><td>6. まだ気づいていない症状</td><td>お会計で「すみません」と言う／欲しい方ではなく安い方を選ぶ／褒められると否定する／無料のものは集めるのに有料だと手が止まる／残高を見るのが怖い</td></tr><tr><td>7. 龍脈</td><td>引き寄せ本・ノート術 → 金運財布・開運グッズ → 金運鑑定 → 講座・個別サポート</td></tr><tr><td>8. 私の主張</td><td>違う違う：お金を引き寄せたいなら、もっと強く願えばいい／本当はこっち：お金は入口の広さではなく、通り道の詰まりで決まる</td></tr><tr><td>9. 解決策の名前とステップ</td><td>「金脈ほどき」。①詰まりを見つける → ②小さく受け取る → ③感謝で流す</td></tr><tr><td>10. 私のストーリー</td><td>境内で賽銭を投げる人々を眺めていた → お金に困らない人と困る人の違いが、願う強さではないと気づいた → 人間の受け取り方を観察し続けた → 詰まりをほどく方法を伝える猫になった（キャラクター設定）</td></tr><tr><td>11. 個別メニュー</td><td>「金脈診断」。公式LINEで事前質問 → 詰まりポイントとほどく順番をまとめた診断レポート＋30分の通話。価格・申込URLは各自で記入</td></tr></tbody></table></div><h2 id="section-5">noteの操作マニュアル</h2><p>当日はPCのブラウザで作業します。アカウント登録から有料記事の公開まで、下の順番で進めてください。操作画面はnote側の更新で変わることがあるので、見当たらないときは近くの人か運営に声をかけてください。</p><h3 id="section-6">1. アカウントを作る（事前にやっておく）</h3><ol><li><a href="https://note.com" target="_blank" rel="noopener noreferrer">note</a> を開き、右上の［会員登録］を選ぶ</li><li>メールアドレス、Google、X、Appleのどれかで登録する</li><li>noteIDと表示名を入れる（どちらもあとで変更できる）</li></ol><p>プロフィールやアイコンは、最初は空欄のままで大丈夫です。今日は記事を公開することを優先してください。</p><h3 id="section-7">2. 記事を書いて、有料にする（ブラウザ）</h3><ol><li>右上の［投稿］を選ぶ</li><li>AIで作った記事をタイトルと本文に貼り付け、［体験談をここに］の部分を自分の言葉に差し替える</li><li>［公開に進む］を選ぶ</li><li>記事を［有料］に切り替え、価格を入力する</li><li>右上の［有料エリア設定］を選び、［ラインをこの場所に変更］で、有料ラインを無料部分の最後（有料にしたい部分の直前）に動かす</li><li>［投稿する］で公開する</li></ol><p>有料ラインは、記事の編集画面でも入れられます。無料部分と有料部分の境目の段落を選び、横に出る［＋］から［有料エリア設定］を選ぶと、「ここから先は有料部分です」というパーツが入ります。</p><p>有料ラインは段落と段落の間にしか置けません。線が入らないときは、境目の前後が別々の段落になっているか確認してください。</p><h3 id="section-8">3. 購入者から見た画面を確認する</h3><p>自分のアカウントでログインしたまま記事を見ると、全文が表示されて購入ボタンが出ません。有料ラインが正しく入っているかは、ブラウザのシークレットモード（プライベートブラウズ）で自分の記事を開いて確認してください。</p><h3 id="section-9">4. 価格を変える</h3><p>プロフィールアイコン →［自分の記事］→ 記事の横の［…］→［編集］→［公開に進む］で、価格を入れ直して公開します。値上げはしてかまいませんが、先に買ってくれた人の信頼のために、値下げはしない方針をおすすめします。</p><h3 id="section-10">知っておくと安心なこと</h3><ul><li>価格は、無料会員なら100円〜50,000円の範囲で設定できます。</li><li>売上から、noteの手数料と決済の手数料が差し引かれて振り込まれます。売上の受け取りには振込先の登録が必要です。当日は公開までを優先し、登録はあとで大丈夫です。</li><li>公開したあとも、本文・価格・有料ラインの位置は何度でも編集できます。</li></ul><p>出典：<a href="https://www.help-note.com/hc/ja/articles/360008882894" target="_blank" rel="noopener noreferrer">有料記事を書く（有料ラインの設定）｜noteヘルプセンター</a>、<a href="https://www.help-note.com/hc/ja/articles/41076926858777" target="_blank" rel="noopener noreferrer">有料記事の価格（値段）変更方法｜noteヘルプセンター</a>、<a href="https://www.sungrove.co.jp/note-paid-article/" target="_blank" rel="noopener noreferrer">note有料記事での稼ぎ方｜サングローブ</a></p><h2 id="section-11">プロンプト集</h2><p>①から⑦まで、同じチャットの中で順番に送ります。【 】の中だけ、自分の内容に書き換えてください。</p><div class="table-scroll" tabindex="0" role="region" aria-label="表（横スクロール可能）"><table><thead><tr><th scope="col">番号</th><th scope="col">使う場面</th><th scope="col">できあがるもの</th></tr></thead><tbody><tr><td>①</td><td>PART1の最後</td><td>清書されたポケット設計書</td></tr><tr><td>②</td><td>PART3</td><td>有料note5案・無料note10案のタイトル</td></tr><tr><td>③</td><td>PART3</td><td>有料noteの目次構成</td></tr><tr><td>④</td><td>PART4</td><td>有料noteの無料部分</td></tr><tr><td>⑤</td><td>PART4</td><td>有料部分（1章ずつ）</td></tr><tr><td>⑥</td><td>PART4</td><td>おわりに・個別メニューの案内</td></tr><tr><td>⑦</td><td>PART5</td><td>有料noteへつなぐ無料note</td></tr></tbody></table></div><h3 id="section-12">① ポケット設計書をまとめる</h3><div class="prompt"><button type="button" class="copy-button" aria-label="プロンプトをコピー">コピー</button><pre><code>あなたは、個人の発信コンセプトを整理するプロの編集者です。
+以下は、私がセミナーのワークでノートに書いたメモです。これを「ポケット設計書」として、下の項目に沿って整理してください。
+メモから分からない項目は勝手に埋めず、最後に「確認したいこと」としてまとめて質問してください。
+
+【ワークのメモ】
+（ここにメモをそのまま貼る）
+
+【ポケット設計書の項目】
+1. 名前・肩書き
+2. キャラクター（一人称・口調・雰囲気・決め台詞）
+3. ポケットタイプ（メイン形式／伸びしろ形式）
+4. 届けたい相手（年代・状況・どんな毎日を送っているか）
+5. 自覚している悩み（本人が言葉にできている悩み）
+6. まだ気づいていない症状（悩みの原因だと気づいていない日常の行動）
+7. 龍脈（この人が前に買っているもの → 次に欲しくなるもの）
+8. 私の主張（違う違う、そうじゃない ／ 本当はこっち）
+9. 解決策の名前とステップ
+10. 私のストーリー（ビフォー／きっかけ／試したこと／アフター）
+11. 個別メニュー（内容・形式・価格・申込先）</code></pre></div><p>AIから質問が返ってきたら、答えて完成させてください。</p><h3 id="section-13">② noteのテーマを出す</h3><p>ぽにょさんの「noteネタ量産プロンプト」をベースに、ポケット設計書と連動する形にしたものです。</p><div class="prompt"><button type="button" class="copy-button" aria-label="プロンプトをコピー">コピー</button><pre><code>このポケット設計書をもとに、noteで書く記事のタイトル案を出してください。
+
+■有料note用 × 5
+・「5. 自覚している悩み」を、お金を払ってでも解決したい人向け
+・「9. 解決策」の中身を、具体的な手順として渡せるテーマ
+
+■無料note用 × 10
+・「6. まだ気づいていない症状」を持つ人が「え、それ私だ」と気づくテーマ
+・読み終わると、有料noteを読みたくなるもの
+
+各案に「タイトル案」「誰のどんな悩みに向けたか」「どんな内容か一言で」をつけてください。
+タイトルは、数字系・体験系・禁止系・疑問系・意外性系を使い分け、思わずタップしたくなるものにしてください。</code></pre></div><p>しっくりくる案がなければ、同じチャットで下の「おかわり」を送ってください。</p><div class="prompt"><button type="button" class="copy-button" aria-label="プロンプトをコピー">コピー</button><pre><code>さっきとは違う切り口で、追加のnoteテーマ案を出してください。
+前回と内容が被らないようにして、以下の切り口を意識してください。
+・読者の「失敗あるある」を解決するテーマ
+・「○○ vs ○○」の比較テーマ
+・「○○をやめたら△△になった」系のテーマ
+・テンプレート・チェックリスト系のテーマ
+無料note用に5個、有料note用に5個お願いします。</code></pre></div><h3 id="section-14">③ 有料noteの構成を作る</h3><div class="prompt"><button type="button" class="copy-button" aria-label="プロンプトをコピー">コピー</button><pre><code>有料noteは「【選んだタイトル】」、価格は【◯円】にします。
+ポケット設計書をもとに、目次構成を作ってください。
+
+【構成のルール】
+・無料部分と有料部分の境目を明記する
+・無料部分：①読者の悩みへの共感 ②こんな人に読んでほしい ③悩みが解決しない本当の原因のヒント（答えは有料部分で） ④この記事で手に入るもの（今日からできること＋長く続く変化の両方） ⑤なぜ私が書くのか
+・有料部分：解決策の全体像 → ステップごとの章 → よくあるつまずきQ&amp;A → おわりに
+・各章に、読者がそのまま使えるワーク・テンプレ・例文を1つ入れる
+・おわりには「背中を押す言葉」「感想・成果報告のお願い」「個別メニューの案内」「次に読んでほしいnote」で構成する</code></pre></div><h3 id="section-15">④ 無料部分を書く</h3><div class="prompt"><button type="button" class="copy-button" aria-label="プロンプトをコピー">コピー</button><pre><code>構成案の「無料部分」だけを書いてください。
+
+【ルール】
+・ポケット設計書の「2. キャラクター」の口調で書く
+・1文を短く、スマホで読みやすい改行にする
+・読者が「これ私のことだ」と思う具体的な場面から書き始める
+・最後は、有料部分で具体的な手順を渡すことを伝えて自然につなぐ
+・実績の数字、お客様の声、体験談を創作しない（ポケット設計書にない事実は書かない）
+・「必ず稼げる」「絶対に叶う」などの保証表現を使わない</code></pre></div><h3 id="section-16">⑤ 有料部分を1章ずつ書く</h3><p>章の数だけ、【◯】の数字を変えて繰り返します。一気に全部書かせると中身が薄くなるので、必ず1章ずつにしてください。</p><div class="prompt"><button type="button" class="copy-button" aria-label="プロンプトをコピー">コピー</button><pre><code>有料部分の「第【◯】章」だけを書いてください。書き終えたら止まってください。
+
+【ルール】
+・その章の結論を最初に書く
+・抽象論で終わらせず、今日そのまま使えるワーク・テンプレ・例文を必ず1つ入れる
+・私の体験談を入れるべき場所に【体験談をここに】と印をつける
+・④と同じ口調と禁止事項を守る</code></pre></div><h3 id="section-17">⑥ おわりに・個別メニューの案内</h3><div class="prompt"><button type="button" class="copy-button" aria-label="プロンプトをコピー">コピー</button><pre><code>最後に「おわりに」を書いてください。
+・読み終えた人が「今すぐやってみたい」と思える、背中を押す言葉
+・感想や成果報告を歓迎する一言（noteのコメントやThreadsで）
+・個別メニューの案内：「この記事の手順を、自分の状況に合わせてやりたい人へ」という位置づけで、内容・形式・価格・申込方法を紹介する。売り込み口調にしない
+・次に読んでほしいnote：【タイトル・URL】（まだなければ空欄でOK）</code></pre></div><h3 id="section-18">⑦ 無料noteを書く</h3><div class="prompt"><button type="button" class="copy-button" aria-label="プロンプトをコピー">コピー</button><pre><code>この有料noteへ読者を連れてくる「無料note」を1本書いてください。
+テーマ：【②の無料note案から選んだタイトル】
+
+【ルール】
+・対象は「6. まだ気づいていない症状」を持つ人。自覚していない人が「え、それ私だ」と気づく内容にする
+・今日すぐ試せるコツを1つ、出し惜しみせずに渡す
+・最後に「もっと深く知りたい人へ」として、有料note【タイトル・URL】を1つだけ紹介する
+・1,500〜2,500字
+・④と同じ口調と禁止事項を守る</code></pre></div><h3 id="section-19">仕上げ：体験談を自分の声で入れる</h3><p>AIが書いた文章は、そのままだと整いすぎて温度が足りません。【体験談をここに】の印の場所に、自分の失敗談や気づきを入れてください。キーボードで打つより、スマホやPCの音声入力で話したほうが、自然で熱のある文章になります。</p><h2 id="section-20">公開前チェックリスト</h2><p>全部にチェックが入らなくても、公開して大丈夫です。気づいたところはあとから直せます。</p><h3 id="section-21">有料note</h3><p>タイトルと無料部分</p><ul class="checklist"><li><label><input type="checkbox"><span>タイトルを見ただけで、誰のどんな悩みの記事か分かる</span></label></li><li><label><input type="checkbox"><span>冒頭が、読者が「これ私のことだ」と思う具体的な場面から始まっている</span></label></li><li><label><input type="checkbox"><span>「こんな人に読んでほしい」が書かれている</span></label></li><li><label><input type="checkbox"><span>悩みが解決しない本当の原因の「ヒント」が、無料部分に入っている</span></label></li><li><label><input type="checkbox"><span>今日からできること（すぐの変化）と、長く続く変化の両方が書かれている</span></label></li><li><label><input type="checkbox"><span>無料部分の最後が、有料部分を読みたくなる終わり方になっている</span></label></li></ul><p>有料部分</p><ul class="checklist"><li><label><input type="checkbox"><span>各章の最初に、その章の結論が書かれている</span></label></li><li><label><input type="checkbox"><span>読者がそのまま使えるワーク・テンプレ・例文が、各章に1つ以上ある</span></label></li><li><label><input type="checkbox"><span>【体験談をここに】の印が、すべて自分の言葉に差し替わっている</span></label></li><li><label><input type="checkbox"><span>おわりに、背中を押す言葉と、感想・成果報告のお願いがある</span></label></li><li><label><input type="checkbox"><span>個別メニューの内容・価格・申込先が書かれ、リンクが正しく開く</span></label></li></ul><p>信頼を守るために</p><ul class="checklist"><li><label><input type="checkbox"><span>実績の数字、お客様の声、体験談に、作り話が入っていない</span></label></li><li><label><input type="checkbox"><span>「必ず稼げる」「絶対に叶う」などの保証表現を使っていない</span></label></li><li><label><input type="checkbox"><span>口調が、ポケット設計書のキャラクターと最初から最後までそろっている</span></label></li></ul><p>操作</p><ul class="checklist"><li><label><input type="checkbox"><span>価格を入れた（迷ったら500〜1,980円から）</span></label></li><li><label><input type="checkbox"><span>有料ラインが、無料部分と有料部分の境目に入っている</span></label></li><li><label><input type="checkbox"><span>シークレットモードで開いて、購入ボタンが出ることを確かめた</span></label></li></ul><h3 id="section-22">無料note</h3><ul class="checklist"><li><label><input type="checkbox"><span>「まだ気づいていない症状」を持つ人に向けて書いている</span></label></li><li><label><input type="checkbox"><span>今日すぐ試せるコツを1つ、出し惜しみせずに渡している</span></label></li><li><label><input type="checkbox"><span>最後に、有料noteへのリンクが1つだけ入っている</span></label></li><li><label><input type="checkbox"><span>有料noteと同じキャラクター・口調で書かれている</span></label></li></ul><h2 id="section-23">公開したあとにやること</h2><p>今日公開した1本は、ポケットの最初のパーツです。ここから下の4つを積み重ねると、noteが寝ている間も個別メニューへ人を運んでくれる仕組みになります。</p><div class="flow" role="img" aria-label="Threads → 無料note → 有料note → 個別メニュー → 高単価のバックエンド。有料noteから無料noteへ、次の記事へ戻る流れ。">
+  <div class="flow-main">
+    <div class="flow-node">Threads</div><span class="flow-arrow" aria-hidden="true">→</span>
+    <div class="flow-node">無料note<small>まだ気づいていない人</small></div><span class="flow-arrow" aria-hidden="true">→</span>
+    <div class="flow-node">有料note<small>悩みを自覚した人</small></div><span class="flow-arrow" aria-hidden="true">→</span>
+    <div class="flow-node">個別メニュー</div><span class="flow-arrow" aria-hidden="true">→</span>
+    <div class="flow-node">高単価の<small>バックエンド</small></div>
+  </div>
+  <div class="flow-return"><span aria-hidden="true">↶</span> 次の記事へ</div>
+</div><p>Threadsで出会った人が無料noteで悩みに気づき、有料noteで解決策を手に入れ、個別メニューで深く伴走を受ける、という流れです。</p><h3 id="section-24">1. 有料noteの品数を増やす</h3><p>屋台が1店しかないと、お客様は買うものがありません。500円・1,980円・4,980円と、価格帯の違う有料noteを少しずつ増やしていきましょう。1,980円の記事が3本そろったら、noteのマガジン機能でセット販売にすると、上の価格帯の商品も一つ増えます。</p><h3 id="section-25">2. 無料noteを量産する</h3><p>無料noteは、タダで何発でも打てる広告です。プロンプト②で出た無料note案10本を、⑦で順番に形にしていきましょう。狙うのは、悩みをまだ自覚していない人です。その人数は、悩みを自覚している人よりずっと多いからです。</p><h3 id="section-26">3. 記事同士をつなぐ</h3><p>1本読んで終わりにさせず、次の記事へ案内し続けます（ぽにょさんの言う「スパイダーマーケティング」）。</p><div class="table-scroll" tabindex="0" role="region" aria-label="表（横スクロール可能）"><table><thead><tr><th scope="col">どこに</th><th scope="col">何を貼るか</th></tr></thead><tbody><tr><td>無料noteの最後</td><td>有料noteへのリンク（1〜2本まで）</td></tr><tr><td>有料noteの途中</td><td>もっと詳しく知りたい人向けの、別の無料note</td></tr><tr><td>有料noteの最後</td><td>次に読んでほしい別の有料noteと、個別メニューの案内</td></tr></tbody></table></div><h3 id="section-27">4. Threadsで届ける</h3><p>Threadsはフォロワーが少なくても、投稿がおすすめに表示されやすい場所です。無料noteの内容を細かく切り分ければ、そのまま毎日の投稿ネタになります。有料noteと無料noteをAIに読み込ませて、「この有料noteを読んでもらうためのThreads投稿を20個作って」と頼むのも手です。</p><p>固定投稿には、一番読んでほしいnoteへのリンクを置いてください。いきなり売り込まず、発信している過程や気づきを見せながら、少しずつ「この人の話なら聞きたい」と思ってもらう順番を大切にしましょう。</p>
+  </main>
+  <script>
+    document.querySelectorAll('.copy-button').forEach(button => {
+      button.addEventListener('click', async () => {
+        const value = button.parentElement.querySelector('code').textContent;
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(value);
+          } else {
+            const area = document.createElement('textarea');
+            area.value = value;
+            area.style.position = 'fixed';
+            area.style.opacity = '0';
+            document.body.appendChild(area);
+            area.select();
+            const copied = document.execCommand('copy');
+            area.remove();
+            if (!copied) throw new Error('copy failed');
+          }
+          button.textContent = 'コピーしました';
+          clearTimeout(button.resetTimer);
+          button.resetTimer = setTimeout(() => button.textContent = 'コピー', 2300);
+        } catch (error) {
+          button.textContent = 'コピーできませんでした';
+          clearTimeout(button.resetTimer);
+          button.resetTimer = setTimeout(() => button.textContent = 'コピー', 2300);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
